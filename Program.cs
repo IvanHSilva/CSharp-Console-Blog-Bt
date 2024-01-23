@@ -1,4 +1,5 @@
 ﻿using Blog.Models;
+using Blog.Repositories;
 using Dapper.Contrib.Extensions;
 using Microsoft.Data.SqlClient;
 
@@ -47,14 +48,12 @@ namespace Blog
             Console.WriteLine();
             Console.WriteLine($"Usuários:");
 
-            using (var connection = new SqlConnection(connectionString))
-            {
-                var users = connection.GetAll<User>();
+            var repository = new UserRepository();
+            var users = repository.SelectAll();
 
-                foreach (var user in users)
-                {
-                    Console.WriteLine($"{user.Name} - Id {user.Id}");
-                }
+            foreach (var user in users)
+            {
+                Console.WriteLine($"{user.Name} - Id {user.Id}");
             }
 
             Console.WriteLine();

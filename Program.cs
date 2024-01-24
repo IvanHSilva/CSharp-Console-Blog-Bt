@@ -12,6 +12,8 @@ namespace Blog
 
         static void Main(string[] args)
         {
+            SqlConnection connection = new(connectionString);
+            connection.Open();
             //ReadUsers();
             //SelectUser(1);
 
@@ -39,16 +41,18 @@ namespace Blog
 
             //UpdatetUser(user);
 
-            DeleteUser(7);
-            ReadUsers();
+            //DeleteUser(7);
+            ReadUsers(connection);
+
+            connection.Close();
         }
 
-        public static void ReadUsers()
+        public static void ReadUsers(SqlConnection connection)
         {
             Console.WriteLine();
             Console.WriteLine($"Usuários:");
 
-            var repository = new UserRepository();
+            var repository = new UserRepository(connection);
             var users = repository.SelectAll();
 
             foreach (var user in users)

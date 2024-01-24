@@ -1,5 +1,6 @@
 ﻿using Blog.Models;
 using Blog.Repositories;
+using Blog.RoleRepositories;
 using Dapper.Contrib.Extensions;
 using Microsoft.Data.SqlClient;
 
@@ -42,23 +43,33 @@ namespace Blog
             //UpdatetUser(user);
 
             //DeleteUser(7);
+            Console.WriteLine();
+            Console.WriteLine($"Usuários:");
             ReadUsers(connection);
+            Console.WriteLine();
+            Console.WriteLine($"Regras:");
+            ReadRoles(connection);
+            Console.WriteLine();
 
             connection.Close();
         }
 
         public static void ReadUsers(SqlConnection connection)
         {
-            Console.WriteLine();
-            Console.WriteLine($"Usuários:");
-
             var repository = new UserRepository(connection);
             var users = repository.SelectAll();
 
             foreach (var user in users)
                 Console.WriteLine($"{user.Name} - Id {user.Id}");
+        }
 
-            Console.WriteLine();
+        public static void ReadRoles(SqlConnection connection)
+        {
+            var repository = new RoleRepository(connection);
+            var roles = repository.SelectAll();
+
+            foreach (var role in roles)
+                Console.WriteLine($"{role.Name} - Id {role.Id}");
         }
 
         public static void SelectUser(int id)

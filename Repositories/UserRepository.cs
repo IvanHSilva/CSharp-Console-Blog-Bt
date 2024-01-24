@@ -23,6 +23,8 @@ public class UserRepository
     public void Update(User user)
     => _connection.Update(user);
 
+    public void Delete(User user)
+    => _connection.Delete(user);
 
     public void Delete(int id)
     {

@@ -52,9 +52,7 @@ namespace Blog
             var users = repository.SelectAll();
 
             foreach (var user in users)
-            {
                 Console.WriteLine($"{user.Name} - Id {user.Id}");
-            }
 
             Console.WriteLine();
         }

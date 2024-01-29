@@ -61,7 +61,10 @@ namespace Blog
             var items = repository.SelectAll();
 
             foreach (var item in items)
+            {
                 Console.WriteLine($"{item.Name} - Id {item.Id}");
+                ReadRoles(connection);
+            }
         }
 
         public static void ReadRoles(SqlConnection connection)

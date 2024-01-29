@@ -5,6 +5,9 @@ namespace Blog.Models
     [Table("[Users]")]
     public class User
     {
+
+        public User() => Roles = [];
+
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
@@ -12,5 +15,8 @@ namespace Blog.Models
         public string Bio { get; set; } = string.Empty;
         public string Image { get; set; } = string.Empty;
         public string Slug { get; set; } = string.Empty;
+
+        [Write(false)]
+        public List<Role> Roles { get; set; } = null!;
     }
 }

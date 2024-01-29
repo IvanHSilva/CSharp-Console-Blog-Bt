@@ -42,14 +42,18 @@ namespace Blog
 
             //DeleteUser(7);
             Console.WriteLine();
-            Console.WriteLine($"Usuários:");
-            ReadUsers(connection);
-            Console.WriteLine();
-            Console.WriteLine($"Regras:");
-            ReadRoles(connection);
-            Console.WriteLine();
-            Console.WriteLine($"Tags:");
-            ReadTags(connection);
+
+            Console.WriteLine($"Usuários + Regras:");
+            ReadUsersWithRoles(connection);
+
+            // Console.WriteLine($"Usuários:");
+            // ReadUsers(connection);
+            // Console.WriteLine();
+            // Console.WriteLine($"Regras:");
+            // ReadRoles(connection);
+            // Console.WriteLine();
+            // Console.WriteLine($"Tags:");
+            // ReadTags(connection);
             Console.WriteLine();
 
             connection.Close();
@@ -61,9 +65,19 @@ namespace Blog
             var items = repository.SelectAll();
 
             foreach (var item in items)
-            {
                 Console.WriteLine($"{item.Name} - Id {item.Id}");
-                ReadRoles(connection);
+        }
+
+        public static void ReadUsersWithRoles(SqlConnection connection)
+        {
+            UserRepository repository = new(connection);
+            var items = repository.SelectWithRoles();
+
+            foreach (var user in items)
+            {
+                Console.WriteLine($"{user.Name} - Id {user.Id}");
+                foreach (var role in user.Roles)
+                    Console.WriteLine($" - {role.Name} - Id {role.Id}");
             }
         }
 

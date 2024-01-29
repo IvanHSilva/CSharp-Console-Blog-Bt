@@ -16,28 +16,25 @@ namespace Blog
             //ReadUsers();
             //SelectUser(1);
 
-            // User user = new()
-            // {
-            //     Name = "Davi Henriques",
-            //     Email = "davilealhenriques@gmail.com",
-            //     PasswordHash = "0145451321654ASGJUYTECSAX",
-            //     Bio = "Estudante",
-            //     Image = "https://",
-            //     Slug = "davi-henriques"
-            // };
-            // //InsertUser(user);
-
             User user = new()
             {
-                Id = 7,
-                Name = "Angela Henriques",
-                Email = "angelahenriquessilva@gmail.com",
-                PasswordHash = "123545456654ASGJUYTECSAX",
-                Bio = "Dona de Casa",
+                Name = "Davi Henriques",
+                Email = "davilealhenriques@gmail.com",
+                PasswordHash = "0145451321654ASGJUYTECSAX",
+                Bio = "Estudante",
                 Image = "https://",
-                Slug = "angela-henriques"
+                Slug = "davi-henriques"
             };
 
+            Role role = new()
+            {
+                Name = "Follower",
+                Slug = "follower"
+            };
+
+            // CreateUser(connection, user);
+            // CreateRole(connection, role);
+            // CreateUserRole(connection, user, role);
             //UpdatetUser(user);
 
             //DeleteUser(7);
@@ -97,6 +94,24 @@ namespace Blog
 
             foreach (var item in items)
                 Console.WriteLine($"{item.Name} - Id {item.Id}");
+        }
+
+        public static void CreateUser(SqlConnection connection, User user)
+        {
+            var repository = new Repository<User>(connection);
+            repository.Insert(user);
+        }
+
+        public static void CreateRole(SqlConnection connection, Role role)
+        {
+            var repository = new Repository<Role>(connection);
+            repository.Insert(role);
+        }
+
+        public static void CreateUserRole(SqlConnection connection, User user, Role role)
+        {
+            UserRepository repository = new(connection);
+            repository.AddRole(user, role);
         }
     }
 }

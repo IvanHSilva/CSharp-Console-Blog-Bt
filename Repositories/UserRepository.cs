@@ -38,4 +38,17 @@ public class UserRepository(SqlConnection connection) : Repository<User>(connect
 
         return users;
     }
+
+    public void AddRole(User user, Role role)
+    {
+        if (role != null)
+            user.Roles.Add(role);
+    }
+
+    public void RemoveRole(User user, Role role)
+    {
+        if (role != null)
+            user.Roles.Remove(role);
+    }
+
 }

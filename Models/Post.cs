@@ -10,5 +10,6 @@ namespace Blog.Models
         public string Slug { get; set; } = string.Empty;
 
         public int CategoryId { get; set; }
+        public int AuthorId { get; set; }
     }
 }

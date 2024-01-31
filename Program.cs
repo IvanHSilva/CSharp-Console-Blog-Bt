@@ -32,16 +32,40 @@ namespace Blog
                 Slug = "follower"
             };
 
+            Category category = new()
+            {
+                Name = "Backend",
+                Slug = "backend"
+            };
+
+            Tag tag = new()
+            {
+                Name = "C#",
+                Slug = "c-sharp"
+            };
+
+            Post post = new()
+            {
+                CategoryId = 1,
+                AuthorId = 1,
+                Title = "Vantagens da linguagem C#",
+                Slug = "vantagens-c-sharp"
+            };
+
+
             // CreateUser(connection, user);
             // CreateRole(connection, role);
             // CreateUserRole(connection, user, role);
+            // CreateCategory(connection, category);
+            // CreateTag(connection, tag);
+            // CreatePost(connection, post);
             //UpdatetUser(user);
 
             //DeleteUser(7);
             Console.WriteLine();
 
-            Console.WriteLine($"Usuários + Regras:");
-            ReadUsersWithRoles(connection);
+            //Console.WriteLine($"Usuários + Regras:");
+            //ReadUsersWithRoles(connection);
 
             // Console.WriteLine($"Usuários:");
             // ReadUsers(connection);
@@ -112,6 +136,30 @@ namespace Blog
         {
             UserRepository repository = new(connection);
             repository.AddRole(user, role);
+        }
+
+        public static void CreateCategory(SqlConnection connection, Category category)
+        {
+            var repository = new Repository<Category>(connection);
+            repository.Insert(category);
+        }
+
+        public static void CreateTag(SqlConnection connection, Tag tag)
+        {
+            var repository = new Repository<Tag>(connection);
+            repository.Insert(tag);
+        }
+
+        public static void CreatePost(SqlConnection connection, Post post)
+        {
+            var repository = new Repository<Post>(connection);
+            repository.Insert(post);
+        }
+
+        public static void CreatePostTag(SqlConnection connection, Post post, Tag tag)
+        {
+            //UserRepository repository = new(connection);
+            //repository.AddRole(user, role);
         }
     }
 }

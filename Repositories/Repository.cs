@@ -3,9 +3,9 @@ using Microsoft.Data.SqlClient;
 
 namespace Blog.Repositories;
 
-public class Repository<T>(SqlConnection connection) where T : class
+public class Repository<T>() where T : class
 {
-    private readonly SqlConnection _connection = connection;
+    private readonly SqlConnection _connection = Database.Connection;
 
     public IEnumerable<T> SelectAll()
         => _connection.GetAll<T>();

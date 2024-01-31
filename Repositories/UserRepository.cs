@@ -4,9 +4,9 @@ using Microsoft.Data.SqlClient;
 
 namespace Blog.Repositories;
 
-public class UserRepository(SqlConnection connection) : Repository<User>(connection)
+public class UserRepository() : Repository<User>
 {
-    private readonly SqlConnection _connection = connection;
+    private readonly SqlConnection _connection = Database.Connection;
 
     public List<User> SelectWithRoles()
     {

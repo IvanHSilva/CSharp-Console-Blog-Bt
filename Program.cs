@@ -1,5 +1,6 @@
 ﻿using Blog.Models;
 using Blog.Repositories;
+using Blog.Screens.TagScreens;
 using Microsoft.Data.SqlClient;
 
 namespace Blog
@@ -11,8 +12,8 @@ namespace Blog
 
         static void Main(string[] args)
         {
-            SqlConnection connection = new(connectionString);
-            connection.Open();
+            Database.Connection = new(connectionString);
+            Database.Connection.Open();
             //ReadUsers();
             //SelectUser(1);
 
@@ -76,15 +77,47 @@ namespace Blog
             // Console.WriteLine($"Tags:");
             // ReadTags(connection);
             Console.WriteLine();
-            // LoadScreens();
+            LoadScreens();
             Console.ReadKey();
 
-            connection.Close();
+            Database.Connection.Close();
         }
 
-        public static void ReadUsers(SqlConnection connection)
+        public static void LoadScreens()
         {
-            var repository = new Repository<User>(connection);
+            Console.Clear();
+            Console.WriteLine("Menu Blog");
+            Console.WriteLine("---------");
+            Console.WriteLine("1) Usuários");
+            Console.WriteLine("2) Perfis");
+            Console.WriteLine("3) Categorias");
+            Console.WriteLine("4) Tags");
+            Console.WriteLine("5) Vincular Usuário e Perfil");
+            Console.WriteLine("6) Vincular Post e Tag");
+            Console.WriteLine("7) Relatórios");
+            Console.WriteLine("0) Sair");
+            Console.WriteLine();
+
+            var option = short.Parse(Console.ReadLine()!);
+            switch (option)
+            {
+                //case 1:
+                //MenuUserScreen.LoadScreen(); break;
+                //case 2:
+                //CreateTagScreen.LoadScreen(); break;
+                //case 3:
+                //UpdateTagScreen.LoadScreen(); break;
+                case 4:
+                    MenuTagScreen.LoadScreen(); break;
+                case 0:
+                    Console.Clear(); Environment.Exit(0); break;
+                default: LoadScreens(); break;
+            }
+        }
+
+        public static void ReadUsers()
+        {
+            var repository = new Repository<User>();
             var items = repository.SelectAll();
 
             foreach (var item in items)
@@ -93,7 +126,7 @@ namespace Blog
 
         public static void ReadUsersWithRoles(SqlConnection connection)
         {
-            UserRepository repository = new(connection);
+            UserRepository repository = new();
             var items = repository.SelectWithRoles();
 
             foreach (var user in items)
@@ -104,61 +137,61 @@ namespace Blog
             }
         }
 
-        public static void ReadRoles(SqlConnection connection)
+        public static void ReadRoles()
         {
-            var repository = new Repository<Role>(connection);
+            var repository = new Repository<Role>();
             var items = repository.SelectAll();
 
             foreach (var item in items)
                 Console.WriteLine($"{item.Name} - Id {item.Id}");
         }
 
-        public static void ReadTags(SqlConnection connection)
+        public static void ReadTags()
         {
-            var repository = new Repository<Tag>(connection);
+            var repository = new Repository<Tag>();
             var items = repository.SelectAll();
 
             foreach (var item in items)
                 Console.WriteLine($"{item.Name} - Id {item.Id}");
         }
 
-        public static void CreateUser(SqlConnection connection, User user)
+        public static void CreateUser(User user)
         {
-            var repository = new Repository<User>(connection);
+            var repository = new Repository<User>();
             repository.Insert(user);
         }
 
-        public static void CreateRole(SqlConnection connection, Role role)
+        public static void CreateRole(Role role)
         {
-            var repository = new Repository<Role>(connection);
+            var repository = new Repository<Role>();
             repository.Insert(role);
         }
 
-        public static void CreateUserRole(SqlConnection connection, User user, Role role)
+        public static void CreateUserRole(User user, Role role)
         {
-            UserRepository repository = new(connection);
+            UserRepository repository = new();
             repository.AddRole(user, role);
         }
 
-        public static void CreateCategory(SqlConnection connection, Category category)
+        public static void CreateCategory(Category category)
         {
-            var repository = new Repository<Category>(connection);
+            var repository = new Repository<Category>();
             repository.Insert(category);
         }
 
-        public static void CreateTag(SqlConnection connection, Tag tag)
+        public static void CreateTag(Tag tag)
         {
-            var repository = new Repository<Tag>(connection);
+            var repository = new Repository<Tag>();
             repository.Insert(tag);
         }
 
-        public static void CreatePost(SqlConnection connection, Post post)
+        public static void CreatePost(Post post)
         {
-            var repository = new Repository<Post>(connection);
+            var repository = new Repository<Post>();
             repository.Insert(post);
         }
 
-        public static void CreatePostTag(SqlConnection connection, Post post, Tag tag)
+        public static void CreatePostTag(Post post, Tag tag)
         {
             //UserRepository repository = new(connection);
             //repository.AddRole(user, role);

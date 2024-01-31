@@ -11,7 +11,8 @@ public static class MenuTagScreen
         Console.WriteLine("2) Cadastrar Tag");
         Console.WriteLine("3) Atualizar Tag");
         Console.WriteLine("4) Excluir Tag");
-        Console.WriteLine("0) Voltar");
+        Console.WriteLine("9) Voltar");
+        Console.WriteLine("0) Sair");
         Console.WriteLine();
 
         var option = short.Parse(Console.ReadLine()!);
@@ -25,8 +26,10 @@ public static class MenuTagScreen
                 UpdateTagScreen.LoadScreen(); break;
             case 4:
                 DeleteTagScreen.LoadScreen(); break;
-            case 0:
+            case 9:
                 Program.LoadScreens(); break;
+            case 0:
+                Environment.Exit(0); break;
             default: LoadScreen(); break;
         }
     }

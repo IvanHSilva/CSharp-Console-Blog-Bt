@@ -25,7 +25,6 @@ public static class CreateTagScreen
         if (name != string.Empty && slug != string.Empty)
         {
             Tag tag = new Tag { Name = name, Slug = slug };
-            Console.WriteLine($"Tag {name} criada com sucesso!");
             return tag;
         }
         return null!;
@@ -37,6 +36,7 @@ public static class CreateTagScreen
         {
             Repository<Tag> repository = new();
             repository.Insert(tag);
+            Console.WriteLine($"Tag {tag.Name} criada com sucesso!");
         }
         catch (Exception ex)
         {

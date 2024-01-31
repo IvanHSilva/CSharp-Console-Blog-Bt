@@ -8,6 +8,9 @@ public static class ListTagScreen
     public static void LoadScreen()
     {
         ListTags();
+        Console.WriteLine();
+        Console.ReadKey();
+        MenuTagScreen.LoadScreen();
     }
 
     private static void ListTags()
@@ -21,8 +24,5 @@ public static class ListTagScreen
         {
             Console.WriteLine($"{tag.Id}- {tag.Name} ({tag.Slug})");
         }
-        Console.WriteLine();
-        Console.ReadKey();
-        MenuTagScreen.LoadScreen();
     }
 }
